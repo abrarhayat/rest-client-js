@@ -35889,9 +35889,11 @@ switch (method.toLowerCase()) {
       .get(url, { headers })
       .then((response) => {
         console.log("GET response:", response.data);
+        core.setOutput("response", response.data);
       })
       .catch((error) => {
         console.error("GET error:", error);
+        core.setFailed("GET request failed.", error);
       });
     break;
   case "post":
@@ -35900,9 +35902,11 @@ switch (method.toLowerCase()) {
       .post(url, body, { headers })
       .then((response) => {
         console.log("POST response:", response.data);
+        core.setOutput("response", response.data);
       })
       .catch((error) => {
         console.error("POST error:", error);
+        core.setFailed("POST request failed.", error);
       });
     break;
   case "put":
@@ -35911,9 +35915,11 @@ switch (method.toLowerCase()) {
       .put(url, body, { headers })
       .then((response) => {
         console.log("PUT response:", response.data);
+        core.setOutput("response", response.data);
       })
       .catch((error) => {
         console.error("PUT error:", error);
+        core.setFailed("PUT request failed.", error);
       });
     break;
   case "delete":
@@ -35923,9 +35929,11 @@ switch (method.toLowerCase()) {
       .delete(url, { headers, data: body })
       .then((response) => {
         console.log("DELETE response:", response.data);
+        core.setOutput("response", response.data);
       })
       .catch((error) => {
         console.error("DELETE error:", error);
+        core.setFailed("DELETE request failed.", error);
       });
     break;
   default:

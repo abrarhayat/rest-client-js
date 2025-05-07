@@ -17,7 +17,7 @@ inputs:
     description: "The directory to attach files from"
     required: false
 outputs:
-  reponse: # the response from the API
+  response: # the response from the API
     description: "The response from the API"
 runs:
   using: "node20"
