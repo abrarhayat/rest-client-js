@@ -1,0 +1,24 @@
+name: "Send REST API request"
+description: "Send a REST API request"
+inputs:
+  url: # the URL to send the request to
+    description: "The URL to send the request to"
+    required: true
+  method: # the HTTP method to use (GET, POST, PUT, DELETE)
+    description: "The HTTP method to use (GET, POST, PUT, DELETE)"
+    required: true
+  headers: # the headers to include in the request
+    description: "The headers to include in the request"
+    required: false
+  body: # the body of the request
+    description: "The body of the request"
+    required: false
+  attachment-dir: # the directory to attach files from
+    description: "The directory to attach files from"
+    required: false
+outputs:
+  reponse: # the response from the API
+    description: "The response from the API"
+runs:
+  using: "node20"
+  main: "dist/index.js"
