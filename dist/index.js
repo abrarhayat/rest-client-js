@@ -35850,7 +35850,6 @@ if (!attachmentDir) {
           ...headers,
           ...formData.getHeaders(),
         };
-        console.log("File stream created successfully.");
       } else {
         console.log("Attachment path does not exist.");
         core.setFailed("Attachment path does not exist.");
@@ -35881,7 +35880,10 @@ if (!attachmentDir) {
     }
   }
 }
-
+console.log("Sending request to URL:", url,
+  "with method:", method,
+  "and headers:", headers,
+  "with body:", body);
 switch (method.toLowerCase()) {
   case "get":
     // GET request
