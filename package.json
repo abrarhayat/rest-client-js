@@ -3,5 +3,11 @@
     "@actions/core": "^1.11.1",
     "@vercel/ncc": "^0.38.3",
     "axios": "^1.9.0"
+  },
+  "devDependencies": {
+    "husky": "^9.1.7"
+  },
+  "scripts": {
+    "prepare": "husky"
   }
 }

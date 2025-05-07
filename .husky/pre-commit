@@ -1,0 +1,5 @@
+echo "Building with ncc..."
+npx ncc build index.js --license licenses.txt
+
+echo "Staging build output..."
+git add dist/
