@@ -60,8 +60,19 @@ async function sendRequest(method, url, body, headers) {
     console.log(`${method.toUpperCase()} response:`, response.data);
     core.setOutput("response", response.data);
   } catch (error) {
-    console.error(`${method.toUpperCase()} error:`, error);
-    core.setFailed(`${method.toUpperCase()} request failed.`);
+    if (error.response) {
+      // Server responded with a status code outside the 2xx range
+      console.error(`${method.toUpperCase()} error:`, error.response.data);
+      core.setFailed(`Request failed with status ${error.response.status}: ${error.response.data.message || error.response.data}`);
+    } else if (error.request) {
+      // No response was received
+      console.error(`${method.toUpperCase()} error: No response received`, error.request);
+      core.setFailed("No response received from the server.");
+    } else {
+      // Something else happened
+      console.error(`${method.toUpperCase()} error:`, error.message);
+      core.setFailed(`Request failed: ${error.message}`);
+    }
   }
 }
 
