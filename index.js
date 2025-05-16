@@ -18,6 +18,10 @@ let body = JSON.parse(core.getInput("body") || process.env.BODY || "{}");
 const attachmentDir =
   core.getInput("attachment-dir") || process.env.ATTACHMENT_DIR;
 
+function formatObjectForLogging(obj) {
+  return JSON.stringify(obj, null, 2);
+}
+
 function validateInputs(url, method) {
   if (!url) {
     core.setFailed("No URL was provided.");
@@ -62,16 +66,16 @@ async function sendRequest(method, url, body, headers) {
   } catch (error) {
     if (error.response) {
       // Server responded with a status code outside the 2xx range
-      console.error(`${method.toUpperCase()} error:`, error.response.data);
-      core.setFailed(`Request failed with status ${error.response.status}: ${error.response.data.message || error.response.data}`);
+      console.error(`${method.toUpperCase()} error:`, formatObjectForLogging(error.response.data));
+      core.setFailed(`Request failed with status ${error.response.status}: ${formatObjectForLogging(error.response.data.message) || formatObjectForLogging(error.response.data)}`);
     } else if (error.request) {
       // No response was received
-      console.error(`${method.toUpperCase()} error: No response received`, error.request);
+      console.error(`${method.toUpperCase()} error: No response received`, formatObjectForLogging(error.request));
       core.setFailed("No response received from the server.");
     } else {
       // Something else happened
-      console.error(`${method.toUpperCase()} error:`, error.message);
-      core.setFailed(`Request failed: ${error.message}`);
+      console.error(`${method.toUpperCase()} error:`, formatObjectForLogging(error.message));
+      core.setFailed(`Request failed: ${formatObjectForLogging(error.message)}`);
     }
   }
 }
@@ -88,5 +92,5 @@ try {
   }
   sendRequest(method.toLowerCase(), url, body, headers);
 } catch (error) {
-  console.error(error.message);
+  console.error(formatObjectForLogging(error.message));
 }
